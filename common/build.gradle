@@ -1,0 +1,13 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: "../common-module.gradle"
+//apply from: "$rootDir/jacoco.gradle"
+
+dependencies {
+
+    implementation deps.pref
+    implementation deps.room
+    implementation deps.gson
+
+}

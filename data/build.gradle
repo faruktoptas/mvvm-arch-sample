@@ -1,0 +1,16 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: "../common-module.gradle"
+//apply from: "$rootDir/jacoco.gradle"
+
+dependencies {
+
+    implementation project(":common")
+    implementation project(":network")
+    implementation deps.retrofit
+    implementation deps.room
+    implementation deps.gson
+    kapt deps.roomCompiler
+}

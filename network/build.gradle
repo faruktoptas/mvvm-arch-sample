@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply from: "../common-module.gradle"
+//apply from: "$rootDir/jacoco.gradle"
+
+dependencies {
+
+    implementation project(":common")
+    implementation deps.retrofit
+    implementation deps.retrofitGsonConverter
+    implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
+    implementation 'me.toptas.okmocker:okmocker-writer:1.0.13'
+
+    testImplementation 'org.json:json:20200518'
+    testImplementation deps.mockServer
+
+}

@@ -1,26 +1,32 @@
 package me.toptas.architecture.base
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import me.toptas.architecture.ext.observeIfTrue
-import me.toptas.architecture.ext.observeNotNull
-import me.toptas.architecture.model.AError
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import me.toptas.architecture.common.ext.observeIfTrue
+import me.toptas.architecture.common.ext.observeNotNull
+import me.toptas.architecture.common.model.AError
+import me.toptas.architecture.view.LoadingDialog
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    private lateinit var loadingIndicator: LoadingDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadingIndicator = LoadingDialog(this)
     }
 
     fun bindViewModel(vm: BaseViewModel) {
         vm.loadingLive.observeNotNull(this) {
             if (isFinishing) return@observeNotNull
             if (it) {
-                // show loading
+                loadingIndicator.show()
             } else {
-                // hide loading
+                loadingIndicator.hide()
             }
         }
 
@@ -36,8 +42,18 @@ abstract class BaseActivity : AppCompatActivity() {
      * All business and networks errors must be handled here
      */
     private fun showError(error: AError) {
-        // show error
-        Log.v("asd", "$error")
+        showAlert(error.toString())
+    }
+
+    private fun showAlert(message: String) {
+        val builder = MaterialAlertDialogBuilder(this).apply {
+            setTitle("Alert")
+            setMessage(message)
+            setCancelable(false)
+            setPositiveButton("Ok") { _, _ -> }
+        }
+        builder.show()
+
     }
 
 

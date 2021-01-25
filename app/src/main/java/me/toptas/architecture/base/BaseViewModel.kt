@@ -3,10 +3,10 @@ package me.toptas.architecture.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import me.toptas.architecture.ext.postFalse
-import me.toptas.architecture.ext.postTrue
-import me.toptas.architecture.model.AError
-import me.toptas.architecture.model.ApiResponse
+import me.toptas.architecture.common.ext.postFalse
+import me.toptas.architecture.common.ext.postTrue
+import me.toptas.architecture.common.model.AError
+import me.toptas.architecture.common.model.ApiResponse
 
 open class BaseViewModel : ViewModel() {
 
@@ -30,10 +30,10 @@ open class BaseViewModel : ViewModel() {
             val response = service()
             hideLoading()
             if (response.success != null) {
-                success(response.success)
+                success(response.success!!)
             } else {
                 if (response.error != null) {
-                    failure(response.error)
+                    failure(response.error!!)
                 } else {
                     failure(AError.Generic(AError.GENERIC_ERROR_NOT_PARSED))
                 }

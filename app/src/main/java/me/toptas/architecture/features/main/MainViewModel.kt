@@ -2,7 +2,7 @@ package me.toptas.architecture.features.main
 
 import androidx.lifecycle.MutableLiveData
 import me.toptas.architecture.base.BaseViewModel
-import me.toptas.architecture.model.Album
+import me.toptas.architecture.common.model.Album
 
 class MainViewModel(private val repo: MainRepository) : BaseViewModel() {
 

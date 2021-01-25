@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-kapt'
 }
 apply from: "$rootDir/dependencies.gradle"
+apply from: "$rootDir/jacoco.gradle"
 
 android {
     compileSdkVersion 30

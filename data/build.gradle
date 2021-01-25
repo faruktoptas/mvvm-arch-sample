@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: "../common-module.gradle"
-//apply from: "$rootDir/jacoco.gradle"
+apply from: "$rootDir/jacoco.gradle"
 
 dependencies {
 

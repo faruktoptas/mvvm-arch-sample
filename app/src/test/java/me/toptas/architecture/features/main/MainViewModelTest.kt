@@ -53,4 +53,17 @@ class MainViewModelTest : BaseTest() {
         }
     }
 
+    @Test
+    fun testFailedFetchWithEmptyErrorr() {
+        runBlocking {
+            whenever(repo.getAlbums()).thenReturn(ApiResponse())
+
+            vm.fetchItems()
+
+            assertNull(vm.albumsLive.observedValue())
+            val error = vm.baseErrorLive.observedValue() as AError.Generic
+            assertEquals(AError.GENERIC_ERROR_NOT_PARSED, error.code)
+        }
+    }
+
 }

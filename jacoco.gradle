@@ -1,0 +1,103 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "$jacoco_version"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+project.afterEvaluate {
+
+    (android.hasProperty('applicationVariants')
+            ? android.'applicationVariants'
+            : android.'libraryVariants').all { variant ->
+        def variantName = variant.name
+        def unitTestTask = "test${variantName.capitalize()}UnitTest"
+
+        tasks.create(name: "${unitTestTask}Coverage", type: JacocoReport, dependsOn: [
+                "$unitTestTask",
+                ":common:testDebugUnitTest",
+                ":data:testDebugUnitTest",
+                ":network:testDebugUnitTest",
+
+        ]) {
+            group = "Reporting"
+            description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build"
+
+            reports {
+                html.enabled = true
+                xml.enabled = false
+                csv.enabled = false
+            }
+
+            def fileFilter = [
+                    '**/R.class',
+                    '**/R$*.class',
+                    '**/BuildConfig.*',
+                    '**/Manifest*.*',
+                    '**/*Test*.*',
+                    '**/com/example/databinding/*',
+                    '**/com/example/generated/callback/*',
+                    '**/android/databinding/*',
+                    '**/androidx/databinding/*',
+                    '**/di/module/*',
+                    '**/*MapperImpl*.*',
+                    '**/*$ViewInjector*.*',
+                    '**/*$ViewBinder*.*',
+                    '**/BuildConfig.*',
+                    '**/*Component*.*',
+                    '**/*BR*.*',
+                    '**/Manifest*.*',
+                    '**/*$Lambda$*.*',
+                    '**/*Companion*.*',
+                    '**/*Module.*',
+                    '**/*Dagger*.*',
+                    '**/*MembersInjector*.*',
+                    '**/*Fragment$*.*',
+                    '**/*Activity*.*',
+                    '**/*_Factory*.*',
+                    '**/*_Provide*Factory*.*',
+                    '**/*Extensions*.*',
+                    '**/*$Result.*', /* filtering `sealed` and `data` classes */
+                    '**/*$Result$*.*',/* filtering `sealed` and `data` classes */
+                    '**/me/toptas/architecture/di/*',
+                    '**/me/toptas/architecture/common/model/*',
+                    '**/me/toptas/architecture/common/ext/*',
+                    '**/me/toptas/architecture/data/repository/*',
+                    '**/*AndroidInterface.*',
+            ]
+
+            classDirectories.setFrom(files([
+                    fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: fileFilter)
+                            .filter({ file -> file.name.contains('ViewModel') })
+                    ,
+                    fileTree(dir: "$project.rootDir/common/build/tmp/kotlin-classes/debug", excludes: fileFilter),
+                    fileTree(dir: "$project.rootDir/data/build/tmp/kotlin-classes/debug", excludes: fileFilter),
+                    fileTree(dir: "$project.rootDir/network/build/tmp/kotlin-classes/debug", excludes: fileFilter),
+            ]))
+
+            def coverageSourceDirs = [
+                    "$project.rootDir/app/src/main/java",
+                    "$project.projectDir/src/${variantName}/java",
+                    "$project.rootDir/common/src/main/java",
+                    "$project.rootDir/data/src/main/java",
+                    "$project.rootDir/network/src/main/java",
+
+            ]
+            additionalSourceDirs.setFrom(files(coverageSourceDirs))
+            sourceDirectories.setFrom(files(coverageSourceDirs))
+
+            def uiTestsData = fileTree(dir: "${buildDir}/outputs/code_coverage/${variantName}AndroidTest/connected/", includes: ["**/*.ec"])
+
+            executionData(files([
+                    "$project.buildDir/jacoco/${unitTestTask}.exec",
+                    uiTestsData,
+                    "$project.rootDir/common/build/jacoco/testDebugUnitTest.exec",
+                    "$project.rootDir/data/build/jacoco/testDebugUnitTest.exec",
+                    "$project.rootDir/network/build/jacoco/testDebugUnitTest.exec",
+            ]))
+        }
+    }
+}

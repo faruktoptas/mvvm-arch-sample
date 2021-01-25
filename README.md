@@ -15,12 +15,12 @@
 
 ## What is used?
 * JetPack ViewModel/LiveData
+* Coroutines
 * Koin
 * DataBinding
-* Jacoco test coverage
 * Unit Tests
 * Instrumentation Tests
-
+* Jacoco test coverage
 
 ## Samples
 

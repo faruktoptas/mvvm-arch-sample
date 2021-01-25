@@ -83,6 +83,13 @@ dependencies {
     testImplementation deps.coroutinesTest
     testImplementation deps.junit
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation deps.mockito
+    androidTestImplementation deps.mockitoKotlin
+    androidTestImplementation "org.mockito:mockito-android:2.25.0"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
 }

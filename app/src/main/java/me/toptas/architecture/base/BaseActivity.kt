@@ -42,7 +42,12 @@ abstract class BaseActivity : AppCompatActivity() {
      * All business and networks errors must be handled here
      */
     private fun showError(error: AError) {
-        showAlert(error.toString())
+        val msg = when (error) {
+            AError.Network -> "Network error"
+            is AError.Business -> error.msg
+            else -> "Generic error"
+        }
+        showAlert(msg)
     }
 
     private fun showAlert(message: String) {

@@ -12,7 +12,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.runBlocking
 import me.toptas.architecture.common.model.Album
 import me.toptas.architecture.common.model.ApiResponse
-import me.toptas.architecture.data.MainRepository
+import me.toptas.architecture.data.repository.MainRepository
 import me.toptas.architecture.features.main.MainActivity
 import org.junit.Before
 import org.junit.Rule

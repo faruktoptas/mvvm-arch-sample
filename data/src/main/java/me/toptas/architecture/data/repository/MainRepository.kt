@@ -1,4 +1,4 @@
-package me.toptas.architecture.data
+package me.toptas.architecture.data.repository
 
 import me.toptas.architecture.common.model.Album
 import me.toptas.architecture.common.model.ApiResponse

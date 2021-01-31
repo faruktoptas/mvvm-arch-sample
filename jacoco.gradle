@@ -28,7 +28,7 @@ project.afterEvaluate {
 
             reports {
                 html.enabled = true
-                xml.enabled = false
+                xml.enabled = true
                 csv.enabled = false
             }
 
@@ -65,6 +65,9 @@ project.afterEvaluate {
                     '**/me/toptas/architecture/di/*',
                     '**/me/toptas/architecture/common/model/*',
                     '**/me/toptas/architecture/common/ext/*',
+                    '**/me/toptas/architecture/common/pref/*',
+                    '**/me/toptas/architecture/network/NetworkModule*',
+                    '**/me/toptas/architecture/network/ApiInterceptor*',
                     '**/me/toptas/architecture/data/repository/*',
                     '**/*AndroidInterface.*',
             ]

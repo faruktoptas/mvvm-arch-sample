@@ -1,0 +1,21 @@
+name: Android CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Gradle Command
+      uses: eskatos/gradle-command-action@v1
+      with:
+        arguments: testDebugUnitTestCoverage
+    - name: Codecov
+      uses: codecov/codecov-action@v1.2.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
+

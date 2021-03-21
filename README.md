@@ -1,4 +1,4 @@
-# mvvm-arch-sample
+# mvvm-arch-sample ![Android CI Action](https://github.com/faruktoptas/mvvm-arch-sample/workflows/build/badge.svg)
 [WORK-IN-PROGRESS] 
 
 * Less boilerplate code

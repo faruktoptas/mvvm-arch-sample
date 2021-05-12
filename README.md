@@ -72,5 +72,5 @@ fun fetchItems() {
 * [ ] Navigation
 * [ ] Feature modules
 * [ ] Easy and readeble Espresso tests with [Robot pattern](https://medium.com/android-bits/espresso-robot-pattern-in-kotlin-fc820ce250f7)
-* [ ] Github actions
+* [x] Github actions
 
